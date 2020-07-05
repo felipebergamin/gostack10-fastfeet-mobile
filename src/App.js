@@ -1,13 +1,18 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { StatusBar } from 'react-native';
 
-// import { Container } from './styles';
+import Routes from '~/routes';
 
 const Home = () => {
   return (
-    <View>
-      <Text>Hello World</Text>
-    </View>
+    <>
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="light-content"
+      />
+      <Routes />
+    </>
   );
 };
 
