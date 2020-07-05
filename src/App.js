@@ -2,18 +2,17 @@ import React from 'react';
 import { StatusBar } from 'react-native';
 
 import Routes from '~/routes';
+import AuthProvider from '~/contexts/auth';
 
-const Home = () => {
+const App = () => {
   return (
     <>
-      <StatusBar
-        translucent
-        backgroundColor="transparent"
-        barStyle="light-content"
-      />
-      <Routes />
+      <StatusBar backgroundColor="#f2f2f2" barStyle="light-content" />
+      <AuthProvider>
+        <Routes />
+      </AuthProvider>
     </>
   );
 };
 
-export default Home;
+export default App;
