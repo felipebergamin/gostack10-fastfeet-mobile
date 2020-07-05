@@ -13,6 +13,15 @@ import {
   TitleRow,
   Title,
   FilterText,
+  DeliveryCard,
+  CardHeader,
+  DeliveryName,
+  CardContent,
+  CardFooter,
+  FooterBlock,
+  BlockLabel,
+  BlockValue,
+  FooterLink,
 } from './styles';
 
 const Deliveries = () => {
@@ -48,6 +57,36 @@ const Deliveries = () => {
           <FilterText>Entregues</FilterText>
         </TouchableOpacity>
       </TitleRow>
+
+      <DeliveryCard>
+        <CardHeader>
+          <Icon name="local-shipping" color="#7D40E7" size={28} />
+
+          <DeliveryName>Encomenda 01</DeliveryName>
+        </CardHeader>
+
+        <CardContent>
+          <DeliveryName>XD</DeliveryName>
+        </CardContent>
+
+        <CardFooter>
+          <FooterBlock>
+            <BlockLabel>Data</BlockLabel>
+            <BlockValue>15/01/2010</BlockValue>
+          </FooterBlock>
+
+          <FooterBlock>
+            <BlockLabel>Cidade</BlockLabel>
+            <BlockValue>Rio Preto</BlockValue>
+          </FooterBlock>
+
+          <FooterBlock>
+            <TouchableOpacity>
+              <FooterLink>Ver Detalhes</FooterLink>
+            </TouchableOpacity>
+          </FooterBlock>
+        </CardFooter>
+      </DeliveryCard>
     </Container>
   );
 };

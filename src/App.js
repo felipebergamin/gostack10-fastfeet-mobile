@@ -7,7 +7,7 @@ import AuthProvider from '~/contexts/auth';
 const App = () => {
   return (
     <>
-      <StatusBar backgroundColor="#f2f2f2" barStyle="light-content" />
+      <StatusBar backgroundColor="#ffffff" barStyle="light-content" />
       <AuthProvider>
         <Routes />
       </AuthProvider>

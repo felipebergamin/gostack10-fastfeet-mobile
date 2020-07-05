@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components/native';
 export const Container = styled.View`
   flex: 1;
   padding: 14px;
+  background-color: #fff;
 `;
 
 export const UserInfoBox = styled.View`
@@ -55,4 +56,58 @@ export const FilterText = styled.Text`
     css`
       text-decoration: underline;
     `}
+`;
+
+export const DeliveryCard = styled.View`
+  width: 100%;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 8px;
+  elevation: 2;
+  overflow: hidden;
+`;
+
+export const CardHeader = styled.View`
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+`;
+
+export const DeliveryName = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #7d40e7;
+  margin-left: 10px;
+`;
+
+export const CardContent = styled.View`
+  padding: 16px 10px;
+`;
+
+export const CardFooter = styled.View`
+  background-color: #f8f9fd;
+  padding: 18px;
+  flex-direction: row;
+`;
+
+export const FooterBlock = styled.View`
+  flex: 1;
+  justify-content: center;
+`;
+
+export const BlockLabel = styled.Text`
+  font-size: 10px;
+  color: #999999;
+`;
+
+export const BlockValue = styled.Text`
+  font-size: 14px;
+  font-weight: bold;
+  color: #444444;
+`;
+
+export const FooterLink = styled.Text`
+  color: #7d40e7;
+  font-weight: bold;
+  text-align: right;
 `;
