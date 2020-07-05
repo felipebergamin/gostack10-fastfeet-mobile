@@ -7,6 +7,7 @@ import { AuthContext } from '~/contexts/auth';
 
 import Login from '~/pages/Login';
 import Deliveries from '~/pages/Deliveries';
+import Profile from '~/pages/Profile';
 
 const Tabs = createBottomTabNavigator();
 
@@ -29,6 +30,15 @@ const Routes = () => {
           options={{
             title: 'Entregas',
             tabBarIcon: (props) => <Icon {...props} name="list" />,
+          }}
+        />
+
+        <Tabs.Screen
+          name="Profile"
+          component={Profile}
+          options={{
+            title: 'Meu Perfil',
+            tabBarIcon: (props) => <Icon {...props} name="user-circle" />,
           }}
         />
       </Tabs.Navigator>
