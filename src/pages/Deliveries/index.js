@@ -48,7 +48,9 @@ const Deliveries = () => {
 
         <Spacer />
 
-        <Icon name="exit-to-app" color="#E74040" size={28} />
+        <TouchableOpacity onPress={auth.logout}>
+          <Icon name="exit-to-app" color="#E74040" size={28} />
+        </TouchableOpacity>
       </UserInfoBox>
 
       <TitleRow>
