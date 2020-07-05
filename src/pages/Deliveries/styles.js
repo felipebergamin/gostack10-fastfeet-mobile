@@ -1,10 +1,14 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
+
+export const Container = styled.View`
+  flex: 1;
+  padding: 14px;
+`;
 
 export const UserInfoBox = styled.View`
   flex-direction: row;
   align-items: center;
   width: 100%;
-  padding: 12px;
 `;
 
 export const UserImage = styled.Image`
@@ -26,4 +30,29 @@ export const UserName = styled.Text`
 
 export const Spacer = styled.View`
   flex: 1;
+`;
+
+export const TitleRow = styled.View`
+  flex-direction: row;
+  align-items: center;
+  margin: 16px 0px;
+`;
+
+export const Title = styled.Text`
+  color: #444444;
+  font-weight: bold;
+  font-size: 22px;
+`;
+
+export const FilterText = styled.Text`
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0px 0px 0px 10px;
+  color: ${(props) => (props.selected ? '#7D40E7' : '#999999')};
+
+  ${(props) =>
+    props.selected &&
+    css`
+      text-decoration: underline;
+    `}
 `;

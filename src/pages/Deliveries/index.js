@@ -1,21 +1,25 @@
 import React from 'react';
-import { View, StatusBar } from 'react-native';
+import { View, StatusBar, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { AuthContext } from '~/contexts/auth';
 import {
+  Container,
   UserInfoBox,
   UserImage,
   WelcomeText,
   UserName,
   Spacer,
+  TitleRow,
+  Title,
+  FilterText,
 } from './styles';
 
 const Deliveries = () => {
   const auth = React.useContext(AuthContext);
 
   return (
-    <View>
+    <Container>
       <StatusBar barStyle="dark-content" />
 
       <UserInfoBox>
@@ -31,7 +35,20 @@ const Deliveries = () => {
 
         <Icon name="exit-to-app" color="#E74040" size={28} />
       </UserInfoBox>
-    </View>
+
+      <TitleRow>
+        <Title>Entregas</Title>
+
+        <Spacer />
+
+        <TouchableOpacity>
+          <FilterText selected>Pendentes</FilterText>
+        </TouchableOpacity>
+        <TouchableOpacity>
+          <FilterText>Entregues</FilterText>
+        </TouchableOpacity>
+      </TitleRow>
+    </Container>
   );
 };
 
