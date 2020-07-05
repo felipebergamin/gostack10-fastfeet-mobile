@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Platform, Alert } from 'react-native';
+import { Platform, Alert, StatusBar } from 'react-native';
 
 import { Container, SignInButton, ButtonText, Image } from './styles';
 import TextInput from '~/components/TextInput';
@@ -19,6 +19,8 @@ const Login = () => {
 
   return (
     <Container enabled behavior={Platform.OS === 'ios' ? 'padding' : null}>
+      <StatusBar backgroundColor="#7d40e7" />
+
       <Image source={require('~/assets/logo-white.png')} />
 
       <TextInput
