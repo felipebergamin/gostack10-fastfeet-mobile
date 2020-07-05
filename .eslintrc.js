@@ -15,9 +15,9 @@ module.exports = {
   plugins: ['react', 'react-native', 'react-hooks'],
   rules: {
     strict: 0,
-    'react/jsx-filename-extension': ['error', {extensions: ['.js', '.jsx']}],
+    'react/jsx-filename-extension': ['error', { extensions: ['.js', '.jsx'] }],
     'import/prefer-default-export': 'off',
-    'no-unused-vars': ['error', {argsIgnorePattern: '^_'}],
+    'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     'react/jsx-one-expression-per-line': 'off',
     'global-require': 'off',
     'react-native/no-raw-text': 'off',
@@ -33,5 +33,16 @@ module.exports = {
     'react-native/no-single-element-style-arrays': 2,
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
+  },
+  settings: {
+    'import/resolver': {
+      'babel-plugin-root-import': {
+        rootPathPrefix: '~',
+        rootPathSuffix: 'src',
+      },
+      node: {
+        extensions: ['.js', '.android.js', '.ios.js', '.native.js'],
+      },
+    },
   },
 };
