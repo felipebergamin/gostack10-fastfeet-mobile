@@ -1,8 +1,9 @@
-import React from 'react';
-import { View, StatusBar, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, StatusBar, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { AuthContext } from '~/contexts/auth';
+import api from '~/services/api';
 import {
   Container,
   UserInfoBox,
@@ -13,22 +14,24 @@ import {
   TitleRow,
   Title,
   FilterText,
-  DeliveryCard,
-  CardHeader,
-  DeliveryName,
-  CardContent,
-  CardFooter,
-  FooterBlock,
-  BlockLabel,
-  BlockValue,
-  FooterLink,
-  Timeline,
-  TimelinePoint,
-  TimelineText,
 } from './styles';
+import DeliveryCard from '~/components/DeliveryCard';
 
 const Deliveries = () => {
+  const [list, setList] = useState(null);
   const auth = React.useContext(AuthContext);
+
+  React.useEffect(() => {
+    const loadData = async () => {
+      const { data } = await api.get(`/couriers/${auth.user.id}/pending`);
+      setList(data);
+    };
+
+    loadData();
+  }, [auth.user.id]);
+
+  // eslint-disable-next-line react/prop-types
+  const renderItem = ({ item }) => <DeliveryCard data={item} />;
 
   return (
     <Container>
@@ -61,45 +64,11 @@ const Deliveries = () => {
         </TouchableOpacity>
       </TitleRow>
 
-      <DeliveryCard>
-        <CardHeader>
-          <Icon name="local-shipping" color="#7D40E7" size={28} />
-
-          <DeliveryName>Encomenda 01</DeliveryName>
-        </CardHeader>
-
-        <CardContent>
-          <Timeline>
-            <TimelinePoint>
-              <TimelineText>Aguardando Retirada</TimelineText>
-            </TimelinePoint>
-            <TimelinePoint>
-              <TimelineText>Retirado</TimelineText>
-            </TimelinePoint>
-            <TimelinePoint>
-              <TimelineText>Entregue</TimelineText>
-            </TimelinePoint>
-          </Timeline>
-        </CardContent>
-
-        <CardFooter>
-          <FooterBlock>
-            <BlockLabel>Data</BlockLabel>
-            <BlockValue>15/01/2010</BlockValue>
-          </FooterBlock>
-
-          <FooterBlock>
-            <BlockLabel>Cidade</BlockLabel>
-            <BlockValue>Rio Preto</BlockValue>
-          </FooterBlock>
-
-          <FooterBlock>
-            <TouchableOpacity>
-              <FooterLink>Ver Detalhes</FooterLink>
-            </TouchableOpacity>
-          </FooterBlock>
-        </CardFooter>
-      </DeliveryCard>
+      <FlatList
+        data={list}
+        keyExtractor={(item) => String(item.id)}
+        renderItem={renderItem}
+      />
     </Container>
   );
 };
