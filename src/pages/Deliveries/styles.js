@@ -57,3 +57,7 @@ export const FilterText = styled.Text`
       text-decoration: underline;
     `}
 `;
+
+export const ItemSeparator = styled.View`
+  height: 20px;
+`;

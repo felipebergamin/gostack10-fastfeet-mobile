@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import { AuthContext } from '~/contexts/auth';
 import api from '~/services/api';
+import DeliveryCard from '~/components/DeliveryCard';
 import {
   Container,
   UserInfoBox,
@@ -14,8 +15,8 @@ import {
   TitleRow,
   Title,
   FilterText,
+  ItemSeparator,
 } from './styles';
-import DeliveryCard from '~/components/DeliveryCard';
 
 const Deliveries = () => {
   const [list, setList] = useState(null);
@@ -70,6 +71,8 @@ const Deliveries = () => {
         data={list}
         keyExtractor={(item) => String(item.id)}
         renderItem={renderItem}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={ItemSeparator}
       />
     </Container>
   );
