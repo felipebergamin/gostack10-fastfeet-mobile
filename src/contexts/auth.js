@@ -6,6 +6,7 @@ import api from '~/services/api';
 export const AuthContext = createContext({});
 
 const AuthProvider = ({ children }) => {
+  const [token, setToken] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
 
@@ -15,8 +16,10 @@ const AuthProvider = ({ children }) => {
         id: courierId,
       });
 
-      setUser(data);
+      setToken(data.token);
+      setUser(data.user);
       setIsAuth(true);
+      api.defaults.headers.common.Authorization = `Bearer ${data.token}`;
     };
 
     return login(id);
