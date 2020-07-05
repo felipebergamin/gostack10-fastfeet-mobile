@@ -82,6 +82,10 @@ export const DeliveryName = styled.Text`
 
 export const CardContent = styled.View`
   padding: 16px 10px;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+  min-height: 75px;
 `;
 
 export const CardFooter = styled.View`
@@ -110,4 +114,36 @@ export const FooterLink = styled.Text`
   color: #7d40e7;
   font-weight: bold;
   text-align: right;
+`;
+
+export const Timeline = styled.View`
+  width: 70%;
+  height: 2px;
+  background-color: #7d40e7;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+`;
+
+export const TimelinePoint = styled.View`
+  background-color: #fff;
+  border: 2px solid #7d40e7;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  margin-top: -4px;
+  overflow: visible;
+  position: relative;
+`;
+
+export const TimelineText = styled.Text`
+  height: 40px;
+  position: absolute;
+  top: 10px;
+  text-align: center;
+  width: 100px;
+  left: -50px;
+  text-align-vertical: center;
+  font-size: 12px;
+  color: #999999;
 `;

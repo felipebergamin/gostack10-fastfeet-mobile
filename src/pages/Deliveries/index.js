@@ -22,6 +22,9 @@ import {
   BlockLabel,
   BlockValue,
   FooterLink,
+  Timeline,
+  TimelinePoint,
+  TimelineText,
 } from './styles';
 
 const Deliveries = () => {
@@ -66,7 +69,17 @@ const Deliveries = () => {
         </CardHeader>
 
         <CardContent>
-          <DeliveryName>XD</DeliveryName>
+          <Timeline>
+            <TimelinePoint>
+              <TimelineText>Aguardando Retirada</TimelineText>
+            </TimelinePoint>
+            <TimelinePoint>
+              <TimelineText>Retirado</TimelineText>
+            </TimelinePoint>
+            <TimelinePoint>
+              <TimelineText>Entregue</TimelineText>
+            </TimelinePoint>
+          </Timeline>
         </CardContent>
 
         <CardFooter>
