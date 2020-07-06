@@ -11,6 +11,7 @@ import Deliveries from '~/pages/Deliveries';
 import Profile from '~/pages/Profile';
 import OrderDetail from '~/pages/OrderDetail';
 import SendProblem from '~/pages/SendProblem';
+import ListProblems from '~/pages/ListProblems';
 
 const Tabs = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -25,6 +26,8 @@ const OrdersNavigator = () => (
     <Stack.Screen name="OrderDetail" component={OrderDetail} />
 
     <Stack.Screen name="SendProblem" component={SendProblem} />
+
+    <Stack.Screen name="ListProblems" component={ListProblems} />
   </Stack.Navigator>
 );
 

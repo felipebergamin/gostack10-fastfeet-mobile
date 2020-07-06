@@ -94,13 +94,11 @@ const OrderDetail = () => {
       </CardsContainer>
 
       <ButtonGroup>
-        <Button
-          onPress={() => navigation.navigate('SendProblem', { id: params.id })}
-        >
+        <Button onPress={() => navigation.navigate('SendProblem', params)}>
           <Icon size={26} color="#E74040" name="close-circle-outline" />
           <ButtonText>Informar um Problema</ButtonText>
         </Button>
-        <Button>
+        <Button onPress={() => navigation.navigate('ListProblems', params)}>
           <Icon size={26} color="#E7BA40" name="information-circle-outline" />
           <ButtonText>Visualizar Problemas</ButtonText>
         </Button>
