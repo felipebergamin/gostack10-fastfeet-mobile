@@ -10,6 +10,7 @@ import Login from '~/pages/Login';
 import Deliveries from '~/pages/Deliveries';
 import Profile from '~/pages/Profile';
 import OrderDetail from '~/pages/OrderDetail';
+import SendProblem from '~/pages/SendProblem';
 
 const Tabs = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,6 +23,8 @@ const OrdersNavigator = () => (
     <Stack.Screen name="OrdersList" component={Deliveries} />
 
     <Stack.Screen name="OrderDetail" component={OrderDetail} />
+
+    <Stack.Screen name="SendProblem" component={SendProblem} />
   </Stack.Navigator>
 );
 
