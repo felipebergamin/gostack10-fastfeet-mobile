@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import PropTypes from 'prop-types';
 import parseISO from 'date-fns/parseISO';
 import format from 'date-fns/format';
+import { useNavigation } from '@react-navigation/native';
 
 import {
   DeliveryCard as Container,
@@ -21,6 +22,8 @@ import {
 } from './styles';
 
 const DeliveryCard = ({ data }) => {
+  const navigation = useNavigation();
+
   const formattedDate = useMemo(() => {
     return format(parseISO(data.createdAt), 'dd/MM/yyyy');
   }, [data.createdAt]);
@@ -59,7 +62,9 @@ const DeliveryCard = ({ data }) => {
         </FooterBlock>
 
         <FooterBlock>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('OrderDetail', data)}
+          >
             <FooterLink>Ver Detalhes</FooterLink>
           </TouchableOpacity>
         </FooterBlock>

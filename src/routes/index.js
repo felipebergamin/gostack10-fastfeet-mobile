@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { AuthContext } from '~/contexts/auth';
@@ -8,8 +9,21 @@ import { AuthContext } from '~/contexts/auth';
 import Login from '~/pages/Login';
 import Deliveries from '~/pages/Deliveries';
 import Profile from '~/pages/Profile';
+import OrderDetail from '~/pages/OrderDetail';
 
 const Tabs = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const OrdersNavigator = () => (
+  <Stack.Navigator
+    initialRouteName="OrdersList"
+    screenOptions={{ headerShown: false }}
+  >
+    <Stack.Screen name="OrdersList" component={Deliveries} />
+
+    <Stack.Screen name="OrderDetail" component={OrderDetail} />
+  </Stack.Navigator>
+);
 
 const Routes = () => {
   const auth = useContext(AuthContext);
@@ -26,7 +40,7 @@ const Routes = () => {
       >
         <Tabs.Screen
           name="Deliveries"
-          component={Deliveries}
+          component={OrdersNavigator}
           options={{
             title: 'Entregas',
             tabBarIcon: (props) => <Icon {...props} name="list" />,
