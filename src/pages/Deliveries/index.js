@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, StatusBar, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
@@ -19,17 +19,32 @@ import {
 } from './styles';
 
 const Deliveries = () => {
-  const [list, setList] = useState(null);
   const auth = React.useContext(AuthContext);
+  const [list, setList] = useState(null);
+  const [listType, setListType] = useState('pending');
+  const [loading, setLoading] = useState(true);
 
-  React.useEffect(() => {
-    const loadData = async () => {
-      const { data } = await api.get(`/couriers/${auth.user.id}/pending`);
-      setList(data);
+  const apiUrl = React.useMemo(() => {
+    const urls = {
+      pending: `/couriers/${auth.user.id}/pending`,
+      delivered: `/couriers/${auth.user.id}/delivered`,
     };
 
+    return urls[listType];
+  }, [listType, auth.user.id]);
+
+  const loadData = useCallback(async () => {
+    setLoading(true);
+
+    const { data } = await api.get(apiUrl);
+    setList(data);
+
+    setLoading(false);
+  }, [apiUrl]);
+
+  React.useEffect(() => {
     loadData();
-  }, [auth.user.id]);
+  }, [loadData]);
 
   // eslint-disable-next-line react/prop-types
   const renderItem = ({ item }) => <DeliveryCard data={item} />;
@@ -59,11 +74,11 @@ const Deliveries = () => {
 
         <Spacer />
 
-        <TouchableOpacity>
-          <FilterText selected>Pendentes</FilterText>
+        <TouchableOpacity onPress={() => setListType('pending')}>
+          <FilterText selected={listType === 'pending'}>Pendentes</FilterText>
         </TouchableOpacity>
-        <TouchableOpacity>
-          <FilterText>Entregues</FilterText>
+        <TouchableOpacity onPress={() => setListType('delivered')}>
+          <FilterText selected={listType === 'delivered'}>Entregues</FilterText>
         </TouchableOpacity>
       </TitleRow>
 
@@ -73,6 +88,8 @@ const Deliveries = () => {
         renderItem={renderItem}
         showsVerticalScrollIndicator={false}
         ItemSeparatorComponent={ItemSeparator}
+        onRefresh={loadData}
+        refreshing={loading}
       />
     </Container>
   );
