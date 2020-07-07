@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
-import { StatusBar, TouchableOpacity } from 'react-native';
+import { StatusBar, TouchableOpacity, Alert } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { AuthContext } from '~/contexts/auth';
+import api from '~/services/api';
 import {
   Container,
   Header,
@@ -23,9 +25,17 @@ import {
 
 const OrderDetail = () => {
   const navigation = useNavigation();
-  const route = useRoute();
+  const { params } = useRoute();
+  const { user } = useContext(AuthContext);
 
-  const { params } = route;
+  const handleWithdraw = async () => {
+    try {
+      await api.post(`/orders/${params.id}/withdraw/${user.id}`);
+      Alert.alert('Retirada efetuada!');
+    } catch (err) {
+      Alert.alert('Não foi possível retirar encomenda para entrega');
+    }
+  };
 
   return (
     <Container>
@@ -102,10 +112,20 @@ const OrderDetail = () => {
           <Icon size={26} color="#E7BA40" name="information-circle-outline" />
           <ButtonText>Visualizar Problemas</ButtonText>
         </Button>
-        <Button>
-          <Icon size={26} color="#7D40E7" name="checkmark-circle-outline" />
-          <ButtonText>Confirmar Entrega</ButtonText>
-        </Button>
+        {params.status === 'retirado' && (
+          <Button
+            onPress={() => navigation.navigate('ConfirmDelivery', params)}
+          >
+            <Icon size={26} color="#7D40E7" name="checkmark-circle-outline" />
+            <ButtonText>Confirmar Entrega</ButtonText>
+          </Button>
+        )}
+        {params.status === 'pendente' && (
+          <Button onPress={handleWithdraw}>
+            <Icon size={26} color="#82bf18" name="play-circle-outline" />
+            <ButtonText>Retirar Para Entrega</ButtonText>
+          </Button>
+        )}
       </ButtonGroup>
     </Container>
   );
