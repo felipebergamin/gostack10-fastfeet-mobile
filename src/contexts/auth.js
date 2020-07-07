@@ -1,5 +1,6 @@
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import api from '~/services/api';
 
@@ -9,6 +10,38 @@ const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    api.defaults.headers.common.Authorization = `Bearer ${token}`;
+  }, [token]);
+
+  useEffect(() => {
+    const load = async () => {
+      const authData = await AsyncStorage.getItem('@fastfeet/credentials');
+
+      if (!authData) {
+        setLoading(false);
+        return;
+      }
+
+      const { token: _token, user: _user } = JSON.parse(authData);
+
+      setUser(_user);
+      setToken(_token);
+      setIsAuth(true);
+      setLoading(false);
+    };
+
+    load();
+  }, []);
+
+  useEffect(() => {
+    AsyncStorage.setItem(
+      '@fastfeet/credentials',
+      JSON.stringify({ token, user }),
+    );
+  }, [token, user]);
 
   const tryLogin = useCallback((id) => {
     const login = async (courierId) => {
@@ -19,7 +52,6 @@ const AuthProvider = ({ children }) => {
       setToken(data.token);
       setUser(data.user);
       setIsAuth(true);
-      api.defaults.headers.common.Authorization = `Bearer ${data.token}`;
     };
 
     return login(id);
@@ -31,7 +63,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuth, user, tryLogin, logout }}>
+    <AuthContext.Provider value={{ isAuth, user, tryLogin, logout, loading }}>
       {children}
     </AuthContext.Provider>
   );
