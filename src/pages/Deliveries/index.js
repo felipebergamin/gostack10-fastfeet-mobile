@@ -19,11 +19,15 @@ import {
   ItemSeparator,
 } from './styles';
 
+const LIMIT = 10;
+
 const Deliveries = () => {
   const auth = React.useContext(AuthContext);
   const [list, setList] = useState(null);
   const [listType, setListType] = useState('pending');
   const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(0);
+  const [disablePaging, setDisablePaging] = useState(false);
 
   const apiUrl = React.useMemo(() => {
     const urls = {
@@ -38,14 +42,42 @@ const Deliveries = () => {
     const fetchData = async () => {
       setLoading(true);
 
-      const { data } = await api.get(apiUrl);
-      setList(data);
+      const { data } = await api.get(apiUrl, {
+        params: {
+          limit: LIMIT,
+          offset: 0,
+        },
+      });
 
+      setList(data);
       setLoading(false);
+      setPage(0);
     };
 
     fetchData();
   }, [apiUrl]);
+
+  const fetchMore = useCallback(() => {
+    if (disablePaging) return;
+
+    const fetchData = async () => {
+      setLoading(true);
+
+      const { data } = await api.get(apiUrl, {
+        params: {
+          limit: LIMIT,
+          offset: (page + 1) * LIMIT,
+        },
+      });
+
+      if (data.length < LIMIT) setDisablePaging(true);
+      setList((state) => [...state, ...data]);
+      setLoading(false);
+      setPage((currentPage) => currentPage + 1);
+    };
+
+    fetchData();
+  }, [apiUrl, page, disablePaging]);
 
   useFocusEffect(loadData);
 
@@ -93,6 +125,8 @@ const Deliveries = () => {
         ItemSeparatorComponent={ItemSeparator}
         onRefresh={loadData}
         refreshing={loading}
+        onEndReached={fetchMore}
+        onEndReachedThreshold={0.2}
       />
     </Container>
   );
