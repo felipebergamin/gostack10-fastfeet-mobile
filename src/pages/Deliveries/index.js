@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { View, StatusBar, TouchableOpacity, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useFocusEffect } from '@react-navigation/native';
 
 import { AuthContext } from '~/contexts/auth';
 import api from '~/services/api';
@@ -33,18 +34,20 @@ const Deliveries = () => {
     return urls[listType];
   }, [listType, auth.user.id]);
 
-  const loadData = useCallback(async () => {
-    setLoading(true);
+  const loadData = useCallback(() => {
+    const fetchData = async () => {
+      setLoading(true);
 
-    const { data } = await api.get(apiUrl);
-    setList(data);
+      const { data } = await api.get(apiUrl);
+      setList(data);
 
-    setLoading(false);
+      setLoading(false);
+    };
+
+    fetchData();
   }, [apiUrl]);
 
-  React.useEffect(() => {
-    loadData();
-  }, [loadData]);
+  useFocusEffect(loadData);
 
   // eslint-disable-next-line react/prop-types
   const renderItem = ({ item }) => <DeliveryCard data={item} />;
