@@ -3,6 +3,9 @@ module.exports = {
     es2020: true,
     jest: true,
   },
+  globals: {
+    FormData: true,
+  },
   extends: ['plugin:react/recommended', 'airbnb', 'prettier', 'prettier/react'],
   parser: 'babel-eslint',
   parserOptions: {
