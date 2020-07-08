@@ -1,6 +1,7 @@
 import React, { createContext, useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import AsyncStorage from '@react-native-community/async-storage';
+import Splash from 'react-native-splash-screen';
 
 import api from '~/services/api';
 
@@ -33,7 +34,7 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
     };
 
-    load();
+    load().finally(() => Splash.hide());
   }, []);
 
   useEffect(() => {
