@@ -68,7 +68,7 @@ export const Timeline = styled.View`
 `;
 
 export const TimelinePoint = styled.View`
-  background-color: #fff;
+  background-color: ${(props) => (props.completed ? '#7d40e7' : '#fff')};
   border: 2px solid #7d40e7;
   width: 10px;
   height: 10px;

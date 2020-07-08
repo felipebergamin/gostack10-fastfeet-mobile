@@ -38,13 +38,13 @@ const DeliveryCard = ({ data }) => {
 
       <CardContent>
         <Timeline>
-          <TimelinePoint>
+          <TimelinePoint completed={data.step >= 1}>
             <TimelineText>Aguardando Retirada</TimelineText>
           </TimelinePoint>
-          <TimelinePoint>
+          <TimelinePoint completed={data.step >= 2}>
             <TimelineText>Retirado</TimelineText>
           </TimelinePoint>
-          <TimelinePoint>
+          <TimelinePoint completed={data.step >= 3}>
             <TimelineText>Entregue</TimelineText>
           </TimelinePoint>
         </Timeline>
@@ -77,6 +77,7 @@ DeliveryCard.propTypes = {
   data: PropTypes.shape({
     product: PropTypes.string,
     createdAt: PropTypes.string,
+    step: PropTypes.number,
     recipient: PropTypes.shape({
       city: PropTypes.string,
     }),
